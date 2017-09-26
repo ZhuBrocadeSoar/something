@@ -65,7 +65,7 @@ int main(void){
             tmpa = mid;
         }
     }
-    printf("区间内有一近似根: x = %.5f\n", mid);
+    printf("区间内有一近似根: x = %.10f\n", mid);
 
     return 0;
 }
