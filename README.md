@@ -5,4 +5,4 @@
 
 一个简单的二分法求三次方程的根，以后应该实现区间的寻找和作业要求的迭代法
 
-*tips: gcc -lm erfen.c -o jiandanerfenqiusanci*
+!(jiandanerfenqiusanci运行结果)[https://github.com/ZhuBrocadeSoar/something/blob/master/pics/jiandanerfenqiusanci.png]

@@ -31,7 +31,7 @@ int main(void){
     printf("epsId: ");scanf("%d", &epsId);
 
     puts("==========输入参数如下==========");
-    printf("(%.3lf)x^3 + (%.3lf)x^2 + (%.3lf)x + (%.3lf)\n", a, b, c, d);
+    printf("(%.3lf)x^3 + (%.3lf)x^2 + (%.3lf)x + (%.3lf) = 0\n", a, b, c, d);
     printf("(%.3lf,%.3lf),eps = 0.5*10^(-%d)\n", enda, endb, epsId);
 
     puts("============开始逼近============");
