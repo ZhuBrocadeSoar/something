@@ -22,15 +22,14 @@ int main(void){
     WDTCTL = WDTPW | WDTHOLD;
     /*
      * 非校验的1MHz
-    DCOCTL = DCO1 | MOD2 | MOD0;
-    BCSCTL1 = RSEL2 | RSEL1 | RSEL0;
+    DCOCTL |= DCO1 | MOD2 | MOD0;
+    BCSCTL1 |= RSEL2 | RSEL1 | RSEL0;
     */
     // 校验的1MHz
     DCOCTL = CALDCO_1MHZ;
     BCSCTL1 = CALBC1_1MHZ;
 
     // 设置SMCLK源为DCOCLK 设置分频为1
-    BCSCTL2 = (SELS & 0x00) | (DIVS0 & 0x00) | (DIVS1 & 0x00);
-    // P1DIR |= 0x01;
+    BCSCTL2 &= ~(SELS | DIVS1 | DIVS0);
     return 0;
 }
