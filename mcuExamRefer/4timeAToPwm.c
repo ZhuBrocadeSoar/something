@@ -30,7 +30,8 @@
 void PWM_init(void);
 void PWM_permill(int duty);
 void GPIO_init(void);
-void PORT1_ISR(void);
+void WDT_init(void);
+void WDT_ISR(void);
 void P1_IODect(void);
 void P13_Onclick(void);
 
@@ -38,6 +39,7 @@ int main(void){
     WDTCTL = WDTPW + WDTHOLD;               // 关狗
     PWM_init();                             // PWM功能(Timer0_A3)初始化
     GPIO_init();                            // 通用端口(按钮和LED)初始化
+    WDT_init();
     _enable_interrupts();                   // 使能中断
     _bis_SR_register(LPM3_bits);            // 进入模式LPM3
     return 0;
@@ -78,7 +80,7 @@ void PWM_permill(unsigned int duty){
     if(duty > 1000){
         duty = 1000;
     }
-    TA0CCR1 = duty * TA0CCTL0 / 1000;
+    TA0CCR1 = duty * TA0CCR0 / 1000;
     return;
 }
 
@@ -90,12 +92,17 @@ void GPIO_init(void){
     P1DIR &= ~BIT3;                         // 输入
     P1REN |= BIT3;                          // 使能上下拉电阻 
     P1OUT |= BIT3;                          // 上拉电阻
-    P1IE |= BIT3;                           // 使能中断
-    P1IES |= BIT3;                          // 下降沿中断
     // 设定TA0.1(P1.6)
     P1DIR |= BIT6;                          // 输出
     P1SEL |= BIT6;                          // 功能选择(作为TA0.1，即课本提到的TA1)
     // P1SEL &= ~BIT?; 手动设置TA0.2对应的引脚的功能选择，具体看引脚功能表或者引脚原理图，课本给出的例程对应单片机没有这个引脚。
+    return;
+}
+
+// 定义看门狗初始化函数
+void WDT_init(void){
+    WDTCTL = WDT_ADLY_16;
+    IE1 |= WDTIE;
     return;
 }
 

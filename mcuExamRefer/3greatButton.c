@@ -13,6 +13,7 @@
 
 #include <msp430/msp430g2553.h>
 
+// 申明
 void P1_IODect(void);
 void P13_Onclick(void);
 void GPIO_init(void);
@@ -27,15 +28,18 @@ int main(void){
     return 0;
 }
 
+// 定义通用端口初始化函数
 void GPIO_init(void){
     P1DIR |= BIT0 + BIT6;                   // P1.0和P1.6输出
     P1OUT |= BIT0;                          // P1.0 初值
     P1OUT &= ~BIT6;                         // P1.6 初值
-    P1OUT |= BIT3;                          // P1.3 输入
-    P1REN |= BIT3;                          // P1.3 使能上拉电阻
+    P1DIR &= ~BIT3;                         // P1.3 输入
+    P1REN |= BIT3;                          // P1.3 使能上下拉电阻
+    P1OUT |= BIT3;                          // P1.3 上拉电阻
     return;
 }
 
+// 定义看门狗初始化函数
 void WDT_init(void){
     WDTCTL = WDT_ADLY_16;                   // 设置狗饿时间为16ms
                                             // 等价于

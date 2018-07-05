@@ -33,3 +33,4 @@ int main(void){
     BCSCTL2 &= ~(SELS + DIVS1 + DIVS0);
     return 0;
 }
+
